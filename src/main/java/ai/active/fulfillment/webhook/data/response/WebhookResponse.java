@@ -3,7 +3,10 @@ package ai.active.fulfillment.webhook.data.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ai.active.fulfillment.webhook.data.request.ServiceRequest;
 import ai.active.fulfillment.webhook.data.request.Transaction;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author rupamdebnath
@@ -27,6 +30,9 @@ public class WebhookResponse extends MorfeusWebhookResponse {
 
   @JsonProperty("serviceRequest")
   private ServiceRequest serviceRequest;
+
+  @JsonProperty("apiAudits")
+  private List<APIAudit> apiAuditList;
 
   public String getTemplateCode() {
     return templateCode;
@@ -76,11 +82,19 @@ public class WebhookResponse extends MorfeusWebhookResponse {
     this.serviceRequest = serviceRequest;
   }
 
+  public List<APIAudit> getApiAuditList() {
+    return apiAuditList;
+  }
+
+  public void setApiAuditList(List<APIAudit> apiAuditList) {
+    this.apiAuditList = apiAuditList;
+  }
+
   @Override
   public String toString() {
-    return "WebhookResponse{" + "templateCode='" + templateCode + '\'' + ", payload='" + payload + '\'' + ", messageCode='" + messageCode
-        + '\'' + ", messageParams=" + Arrays.toString(messageParams) + ", transaction=" + transaction + ", serviceRequest=" + serviceRequest
-        + '}';
+    return new ToStringBuilder(this).append("templateCode", templateCode).append("payload", payload).append("messageCode", messageCode)
+        .append("messageParams", messageParams).append("transaction", transaction).append("serviceRequest", serviceRequest)
+        .append("apiAuditList", apiAuditList).toString();
   }
   
 }
